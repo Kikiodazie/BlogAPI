@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class PostRestController {
 
@@ -22,13 +24,18 @@ public class PostRestController {
         return new ResponseEntity<>(post,HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId){
-        Post postToDelete = postService.getPostRepository().findByPostId(postId);
-        postService.deletePost(postToDelete);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getAllPosts(){
+        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
+
+//    @DeleteMapping("/posts/{postId}")
+//    public ResponseEntity<Void> deletePost(@PathVariable Long postId){
+//        Post postToDelete = postService.getPostRepository().findByPostId(postId);
+//        postService.deletePost(postToDelete);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 
 }
